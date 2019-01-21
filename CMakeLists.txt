@@ -1,0 +1,61 @@
+cmake_minimum_required(VERSION 3.1.0)
+project(ModernOpenGL)
+
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules/")
+
+find_package(OpenGL REQUIRED)
+find_package(GLUT REQUIRED)
+find_package(GLEW REQUIRED)
+
+if(NOT ${OPENGL_FOUND})
+    message("OPENGL not found")
+endif()
+
+include_directories(
+    ${PROJECT_SOURCE_DIR}
+    ${GLUT_INCLUDE_DIR}
+    ${GLEW_INCLUDE_DIR}
+    ${OPENGL_INCLUDE_DIR}
+    ${PROJECT_SOURCE_DIR}/CODE/HEADERS
+    ${PROJECT_SOURCE_DIR}/CODE/SOURCES
+    )
+
+message(${OPENGL_INCLUDE_DIR})
+
+set(MY_HEADER_FILES
+    ${PROJECT_SOURCE_DIR}/CODE/HEADERS/manager.h
+    ${PROJECT_SOURCE_DIR}/CODE/HEADERS/vertexbuffer.h
+    ${PROJECT_SOURCE_DIR}/CODE/HEADERS/indexbuffer.h
+    ${PROJECT_SOURCE_DIR}/CODE/HEADERS/vertexarray.h
+    ${PROJECT_SOURCE_DIR}/CODE/HEADERS/vertexbufferlayout.h
+    ${PROJECT_SOURCE_DIR}/CODE/HEADERS/renderer.h
+	${PROJECT_SOURCE_DIR}/CODE/HEADERS/shader.h
+    ${PROJECT_SOURCE_DIR}/CODE/HEADERS/painter.h
+    ${PROJECT_SOURCE_DIR}/CODE/HEADERS/mydrawing.h
+)
+
+set(MY_SOURCE_FILES
+    ${PROJECT_SOURCE_DIR}/CODE/SOURCES/basic.cpp
+	${PROJECT_SOURCE_DIR}/CODE/SOURCES/manager.cpp
+    ${PROJECT_SOURCE_DIR}/CODE/SOURCES/vertexbuffer.cpp
+    ${PROJECT_SOURCE_DIR}/CODE/SOURCES/indexbuffer.cpp
+	${PROJECT_SOURCE_DIR}/CODE/SOURCES/vertexarray.cpp
+    ${PROJECT_SOURCE_DIR}/CODE/SOURCES/renderer.cpp
+    ${PROJECT_SOURCE_DIR}/CODE/SOURCES/shader.cpp
+    ${PROJECT_SOURCE_DIR}/CODE/SOURCES/painter.cpp
+    ${PROJECT_SOURCE_DIR}/CODE/SOURCES/mydrawing.cpp
+
+)
+
+
+add_executable(ModernOpenGL
+	${MY_HEADER_FILES}
+	${MY_SOURCE_FILES}
+)
+
+
+target_link_libraries(${PROJECT_NAME} 
+${OPENGL_LIBRARY}
+${GLUT_LIBRARY}
+${GLEW_LIBRARY}
+)
